@@ -22,9 +22,13 @@ const App = () => {
   }
 
   return (
-    <div>
-      <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
-      <Countries filter={newFilter} countries={countries} />
+    <div className='bg-gray-100 h-screen'>
+      <div className='col-span-1'>
+        <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
+      </div>
+      <div className='text-gray-500 text-2xl px-6 col-span-1'>
+        <Countries filter={newFilter} countries={countries} />
+      </div>
     </div>
   )
 }

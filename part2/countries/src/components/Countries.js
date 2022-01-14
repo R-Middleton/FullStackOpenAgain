@@ -13,20 +13,25 @@ const Countries = ({ filter, countries }) => {
   }
 
   if (filteredCountries.length > 10) {
-    return <div>Too many matches, specify another filter</div>
+    return <div className='py-4'>Too many matches, specify another filter</div>
   } else if (filteredCountries.length === 1) {
     return <DetailedCountry country={filteredCountries[0]} />
   } else {
     return (
       <ul>
         {filteredCountries.map((country) => (
-          <li key={country.cca2}>
+          <li key={country.cca2} className='py-2'>
             {country.name.common}{' '}
-            <button onClick={() => handleButtonPress(country.cca2)}>
+            <button
+              onClick={() => handleButtonPress(country.cca2)}
+              className='bg-blue-500 py-0.5 px-2 rounded text-white font-bold hover:bg-blue-700'
+            >
               show
             </button>
             {countriesToShow === country.cca2 ? (
-              <DetailedCountry country={country} />
+              <div className='p-4 mt-8 bg-white shadow w-96'>
+                <DetailedCountry country={country} />
+              </div>
             ) : null}
           </li>
         ))}
