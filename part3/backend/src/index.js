@@ -1,3 +1,4 @@
+const { response } = require('express')
 const express = require('express')
 const app = express()
 
@@ -84,6 +85,12 @@ app.get('/api/notes/:id', (request, response) => {
     response.status(404).end()
   }
 })
+
+const unknownEndpoint = (request, resposne) => {
+  response.status(404).send({ error: 'unknown endpoint' })
+}
+
+app.use(unknownEndpoint)
 
 const PORT = 3001
 app.listen(PORT, () => {
