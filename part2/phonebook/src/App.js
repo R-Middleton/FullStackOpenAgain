@@ -12,10 +12,11 @@ const App = () => {
   const [notification, setNewNotification] = useState(null)
 
   useEffect(() => {
-    axios.get('http://localhost:3001/persons')
-    .then(response => {
-      setPersons(response.data)
-    })
+    axios
+      .get('https://arcane-anchorage-66398.herokuapp.com/api/persons')
+      .then((response) => {
+        setPersons(response.data)
+      })
   }, [])
 
   useEffect(() => {
@@ -28,17 +29,15 @@ const App = () => {
     event.preventDefault()
     const personObject = {
       name: newName,
-      id: persons.length + 1,
-      number: newNumber
+      phone_number: newNumber,
     }
 
-    var names = persons.map((person) => person.name)
-    if (names.includes(personObject.name)) {
-      window.alert(`${newName} is already added to phonebook`)
-    } else {
-      setPersons(persons.concat(personObject))
-    }
+    axios.post(
+      'https://arcane-anchorage-66398.herokuapp.com/api/persons',
+      personObject
+    )
 
+    setPersons(persons.concat(personObject))
     setNewNotification(`Added ${newName}`)
     setNewName('')
     setNewNumber('')
@@ -61,11 +60,7 @@ const App = () => {
       return null
     }
 
-    return (
-      <div className="notification">
-        {message}
-      </div>
-    )
+    return <div className='notification'>{message}</div>
   }
 
   return (
@@ -74,7 +69,7 @@ const App = () => {
       <Notification message={notification} />
       <Filter newFilter={newFilter} handleFilterChange={handleFilterChange} />
 
-      <h3>add a new</h3>
+      <h3>Add a new number</h3>
       <PersonForm
         addPerson={addPerson}
         newName={newName}
